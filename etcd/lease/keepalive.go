@@ -28,13 +28,19 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Printf("1 %+v\n", *putResp)
+	//keepAliveRespCh, err := client.KeepAlive(context.TODO(), leaseGrantRsp.ID)
+	_, err = client.KeepAlive(context.TODO(), leaseGrantRsp.ID)
+	if err != nil {
+		log.Fatal("2", err)
+	}
+	log.Println("keep alive ")
 	for {
-		keepAliveRespCh, err := client.KeepAlive(context.TODO(), leaseGrantRsp.ID)
-		if err != nil {
-			log.Fatal("2", err)
+		/*
+		select {
+		case keepAliveResp := <-keepAliveRespCh:
+			log.Printf("keepAlive %d", keepAliveResp.TTL)
 		}
-		keepAliveResp := <-keepAliveRespCh
-		log.Printf("keepAlive %d", keepAliveResp.TTL)
+		*/
 		time.Sleep(3 * time.Second)
 	}
 }
