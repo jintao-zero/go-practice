@@ -1,0 +1,7 @@
+#intelli idea project 
+.idea
+*.iml
+
+*bak
+*exe
+*out
